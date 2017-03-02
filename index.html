@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Calculatrice</title>
+	<link rel="stylesheet" type="text/css" href="style/style.css">
+</head>
+<body>
+	<ul class="numbers clearfix">
+		<li class="key key_103">7</li>
+		<li class="key key_104">8</li>
+		<li class="key key_105">9</li>
+		<li class="key key_100">4</li>
+		<li class="key key_101">5</li>
+		<li class="key key_102">6</li>
+		<li class="key key_97">1</li>
+		<li class="key key_98">2</li>
+		<li class="key key_99">3</li>
+		<li class="key key_96">0</li>
+	</ul>
+
+	<div class = "operators clearfix">
+		<button class="ope key key_107">+</button>
+		<button class="ope key key_109">-</button>
+		<button class="ope key key_106">*</button>
+		<button class="ope key key_111">/</button>	
+		<button class="calc key key_13">=</button>
+	</div>
+	
+	<div class ="result"></div>
+
+	<script type="text/javascript">
+
+		var numbers = document.querySelectorAll("li"); 
+		var calc = document.querySelector(".calc");
+		var ope = document.querySelectorAll(".ope");
+		var result = document.querySelector(".result");
+		var entry1 = "";
+		var entry2 = "";
+		var entryOp = "";
+		var memo = 0;
+		var part1 = ".key_";	
+
+
+		for(var i = 0; i < numbers.length; i++)
+		{
+			numbers[i].addEventListener("click", stockNumber);
+		}
+
+		for(var i = 0; i < ope.length; i++)
+		{
+			ope[i].addEventListener("click", stockOpe);
+		}
+
+		calc.addEventListener("click", function()
+		{
+			if(entry1 === "0" && entry2 === "0")
+			{
+				result.innerHTML = "T'es sérieux?";
+			}
+			else
+			{
+				result.innerHTML = entry1 + " " + entryOp + " " + entry2 + " = " + calculate(entry1, entryOp, entry2);
+			}
+			entry1 = "";
+			entry2 = "";
+			entryOp = "";	
+			memo = 0;	
+		});
+
+		function stockNumber()
+		{
+			if(entryOp === "")
+			{
+				entry1 += this.textContent;
+				result.innerHTML = entry1;
+			}
+			else
+			{
+				
+				result.innerHTML += this.textContent
+				if(memo === 0)
+				{
+					memo = this.textContent;
+					entry2 = memo;
+					console.log(memo);
+				}
+				else
+				{
+					memo += this.textContent;
+					entry2 = memo;
+					console.log(memo);
+				}
+			}
+		}
+
+		function stockOpe()
+		{
+			entryOp = this.textContent;	
+			result.innerHTML += " " + entryOp + " ";	
+		}
+
+		function calculate(nb1, operator, nb2)
+		{
+			var total;
+			switch(operator) 
+			{
+			    case "+":
+			        total = addition(nb1, nb2);
+			        break;
+			    case "-":
+			        total = soustraction(nb1, nb2);
+			        break;
+			    case "*":
+			        total = multiplication(nb1, nb2);
+			        break;		
+			    case "/":
+			        total = division(nb1, nb2);
+			        break;		
+			    default:
+			    	total = "erreur";
+			} 
+			return total;
+		}
+
+		function addition(number1, number2)
+		{
+			return Number(number1) + Number(number2);
+		}
+
+		function soustraction(number1, number2)
+		{
+			return number1 - number2;
+		}
+
+		function division(number1, number2)
+		{
+			return number1 / number2;
+		}
+
+		function multiplication(number1, number2)
+		{
+			return number1 * number2;
+		}
+
+		document.addEventListener("keydown", function(event)
+		{
+			var touch = document.querySelector(part1+event.keyCode);
+			touch.click();
+			touch.classList.add("active");
+		});
+
+		document.addEventListener("keyup", function(event)
+		{
+			var touch = document.querySelector(part1+event.keyCode);
+			
+			touch.classList.remove("active");
+		});
+	</script>
+</body>
+</html>
