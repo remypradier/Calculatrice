@@ -1,8 +1,5 @@
 # Calculatrice
 
-
-Calculatrice javascript
-
 Modification d'un calculatrice réalisée en cours de javascript.
 
 Contribution personnelle:
