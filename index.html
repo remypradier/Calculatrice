@@ -39,8 +39,7 @@
 		var entry2 = "";
 		var entryOp = "";
 		var memo = 0;
-		var part1 = ".key_";	
-
+		var part1 = ".key_";		
 
 		for(var i = 0; i < numbers.length; i++)
 		{
@@ -77,19 +76,16 @@
 			}
 			else
 			{
-				
 				result.innerHTML += this.textContent
 				if(memo === 0)
 				{
 					memo = this.textContent;
 					entry2 = memo;
-					console.log(memo);
 				}
 				else
 				{
 					memo += this.textContent;
 					entry2 = memo;
-					console.log(memo);
 				}
 			}
 		}
@@ -142,18 +138,18 @@
 		{
 			return number1 * number2;
 		}
-
+	
 		document.addEventListener("keydown", function(event)
 		{
-			var touch = document.querySelector(part1+event.keyCode);
-			touch.click();
+			var touch = document.querySelector(part1 + event.keyCode);
 			touch.classList.add("active");
+			touch.click();
+			
 		});
 
 		document.addEventListener("keyup", function(event)
 		{
-			var touch = document.querySelector(part1+event.keyCode);
-			
+			var touch = document.querySelector(part1 + event.keyCode);
 			touch.classList.remove("active");
 		});
 	</script>
