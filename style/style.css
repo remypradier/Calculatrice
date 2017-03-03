@@ -33,7 +33,7 @@ body
 
 }
 
-.numbers li
+.numbers li, .numbers button
 {
 	width: 31%;
 	float: left;
@@ -44,15 +44,16 @@ body
 	color: #fff;
 	margin: 0.5% 1.15%;
 	font-weight: bold;
+	border: none;
 }
 
-.numbers li:hover, .operators button:hover
+.numbers li:hover, .numbers button:hover, .operators button:hover
 {
 	cursor: pointer;
 	background: #2ebad3;
 }
 
-.numbers li:last-child, .operators button:last-child
+.operators button:last-child
 {
 	width: 97.70%;
 	margin: 0.5% 1.15%;

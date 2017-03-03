@@ -16,9 +16,11 @@
 		<li class="key key_97">1</li>
 		<li class="key key_98">2</li>
 		<li class="key key_99">3</li>
+		<button class="clear key key_67">C</button>
 		<li class="key key_96">0</li>
+		<button class="supp key key_8">←</button>
 	</ul>
-
+ 
 	<div class = "operators clearfix">
 		<button class="ope key key_107">+</button>
 		<button class="ope key key_109">-</button>
@@ -30,15 +32,17 @@
 	<div class ="result"></div>
 
 	<script type="text/javascript">
-
 		var numbers = document.querySelectorAll("li"); 
 		var calc = document.querySelector(".calc");
 		var ope = document.querySelectorAll(".ope");
 		var result = document.querySelector(".result");
+		var supp = document.querySelector(".supp");
+		var clear = document.querySelector(".clear");
 		var entry1 = "";
 		var entry2 = "";
 		var entryOp = "";
-		var memo = 0;
+		var memSupp = 0;
+		var memAdd = 0;
 		var part1 = ".key_";		
 
 		for(var i = 0; i < numbers.length; i++)
@@ -61,11 +65,66 @@
 			{
 				result.innerHTML = entry1 + " " + entryOp + " " + entry2 + " = " + calculate(entry1, entryOp, entry2);
 			}
+			clear_result();
+		});
+
+		clear.addEventListener("click", function()
+		{
+			clear_result();
+			result.innerHTML = "";
+		})
+
+		supp.addEventListener("click", function()
+		{
+			if(entryOp === "")
+			{
+				entry1 = entry1.slice(0, entry1.length - 1); 
+				result.innerHTML = entry1;
+			}
+			else
+			{	
+				if(entry2 === "")
+				{
+					entryOp = "";
+					result.innerHTML = entry1;
+				}
+				else
+				{
+					if(entry2.length > 1)
+					{
+						if(memSupp === 0)
+						{
+							memSupp = entry2.slice(0, entry2.length - 1); 
+							entry2 = memSupp;
+							result.innerHTML = entry1 + " " + entryOp + " " + entry2;
+							console.log(entry2);
+						}
+						else
+						{
+							memSupp = entry2.slice(0, entry2.length - 1); 
+							entry2 = memSupp;
+							console.log(entry2);
+							result.innerHTML = entry1 + " " + entryOp + " " + entry2;	
+						}
+					}
+					else
+					{
+						entry2 = "";
+						result.innerHTML = entry1 + " " + entryOp;
+						console.log(entry2);
+					}
+				}
+			}
+		})
+
+		function clear_result()
+		{
 			entry1 = "";
 			entry2 = "";
 			entryOp = "";	
-			memo = 0;	
-		});
+			memSupp = 0;
+			memAdd = 0;
+		}
 
 		function stockNumber()
 		{
@@ -77,15 +136,16 @@
 			else
 			{
 				result.innerHTML += this.textContent
-				if(memo === 0)
+				if(entry2 === "")
 				{
-					memo = this.textContent;
-					entry2 = memo;
+					memAdd = this.textContent;
+					entry2 = memAdd;
 				}
 				else
 				{
-					memo += this.textContent;
-					entry2 = memo;
+					memAdd += this.textContent;
+					console.log(memAdd);
+					entry2 = memAdd;
 				}
 			}
 		}
@@ -143,8 +203,7 @@
 		{
 			var touch = document.querySelector(part1 + event.keyCode);
 			touch.classList.add("active");
-			touch.click();
-			
+			touch.click();			
 		});
 
 		document.addEventListener("keyup", function(event)
