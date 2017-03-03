@@ -102,3 +102,25 @@ body
 {
 	background: #2ebad3 !important;
 }
+
+@media screen and (max-width : 768px)
+{
+	.numbers, .operators, .result
+	{
+		width: 95%;
+	}
+
+	.result
+	{
+		font-size: 7em;
+	}
+}
+
+@media screen and (max-width : 500px)
+{
+	.result
+	{
+		font-size: 3em;
+	}
+
+}
